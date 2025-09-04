@@ -102,10 +102,12 @@ public class UserServlet extends HttpServlet {
 					 
 					 
 					 Userbean ub=ua.setUser(fname,lname,username,pwd,ph,mail,role,img);
-						request.setAttribute("myBean", ub);
-						RequestDispatcher rd=request.getRequestDispatcher("/jsp/userlists.jsp");
-						rd.forward(request, response);
+												
 				 }
+				 ArrayList<Userbean> view=ua.viewUser();
+					request.setAttribute("UserSer", view);
+					RequestDispatcher rd=request.getRequestDispatcher("jsp/userlists.jsp");
+					rd.forward(request, response);
 				 
 
 	}

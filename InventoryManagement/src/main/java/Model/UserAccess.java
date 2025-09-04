@@ -93,7 +93,9 @@ public class UserAccess {
 				String sql="Select * from user";
 				rs=stmt.executeQuery(sql);
 				String fname="",lname="",role = "",username="",mail="",img="",ph="";
+				int uid=0;
 				while(rs.next()) {
+					uid=rs.getInt("uid");
 					fname=rs.getString("fname");
 					lname=rs.getString("lname");
 					role=rs.getString("role");
@@ -102,6 +104,7 @@ public class UserAccess {
 					img=rs.getString("img");
 					ph=rs.getString("phone");
 					Userbean user1=new Userbean();
+					user1.setUid(uid);
 					user1.setFname(fname);
 					user1.setLname(lname);
 					user1.setRole(role);
@@ -110,6 +113,7 @@ public class UserAccess {
 					user1.setMail(mail);
 					user1.setImg(img);
 					user.add(user1);
+					System.out.print(user1.getFname());
 				}
 			} catch (Exception e) {
 				// TODO: handle exception

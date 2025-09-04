@@ -1,5 +1,9 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="jakarta.servlet.*,jakarta.servlet.http.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +31,15 @@
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
 <link rel="stylesheet" href="assets/css/style.css">
+<%@ page import="java.util.*, Model.UserAccess, Model.Userbean" %>
+<%
+    // Only fetch data if not already set by the servlet
+    if (request.getAttribute("UserSer") == null) {
+        UserAccess ua = new UserAccess();
+        List<Userbean> users = ua.viewUser();
+        request.setAttribute("UserSer", users);
+    }
+%>
 </head>
 <body>
 <div id="global-loader">
@@ -67,7 +80,7 @@
 <div class="searchinputs">
 <input type="text" placeholder="Search Here ...">
 <div class="search-addon">
-<span><img src="assets/img/icons/closes.svg" alt="img"></span>
+<span><img src="../assets/img/icons/closes.svg" alt="img"></span>
 </div>
 </div>
 <a class="btn" id="searchdiv"><img src="assets/img/icons/search.svg" alt="img"></a>
@@ -224,215 +237,55 @@
 <div id="sidebar-menu" class="sidebar-menu">
 <ul>
 <li>
-<a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
+<a href="index.jsp"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
 </li>
 <li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span> Product</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="productlist.html">Product List</a></li>
-<li><a href="addproduct.html">Add Product</a></li>
-<li><a href="categorylist.html">Category List</a></li>
-<li><a href="addcategory.html">Add Category</a></li>
-<li><a href="subcategorylist.html">Sub Category List</a></li>
-<li><a href="subaddcategory.html">Add Sub Category</a></li>
-<li><a href="brandlist.html">Brand List</a></li>
-<li><a href="addbrand.html">Add Brand</a></li>
-<li><a href="importproduct.html">Import Products</a></li>
-<li><a href="barcode.html">Print Barcode</a></li>
+<li><a href="productlist.jsp">Product List</a></li>
+<li><a href="addproduct.jsp">Add Product</a></li>
+<li><a href="categorylist.jsp">Category List</a></li>
+<li><a href="addcategory.jsp">Add Category</a></li>
+<li><a href="brandlist.jsp">Brand List</a></li>
+<li><a href="addbrand.jsp">Add Brand</a></li>
 </ul>
 </li>
 <li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/sales1.svg" alt="img"><span> Sales</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="saleslist.html">Sales List</a></li>
-<li><a href="pos.html">POS</a></li>
-<li><a href="pos.html">New Sales</a></li>
-<li><a href="salesreturnlists.html">Sales Return List</a></li>
-<li><a href="createsalesreturns.html">New Sales Return</a></li>
+<li><a href="saleslist.jsp">Sales List</a></li>
+<li><a href="pos.jsp">POS</a></li>
 </ul>
 </li>
 <li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/purchase1.svg" alt="img"><span> Purchase</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="purchaselist.html">Purchase List</a></li>
-<li><a href="addpurchase.html">Add Purchase</a></li>
-<li><a href="importpurchase.html">Import Purchase</a></li>
+<li><a href="purchaselist.jsp">Purchase List</a></li>
+<li><a href="addpurchase.jsp">Add Purchase</a></li>
 </ul>
 </li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/expense1.svg" alt="img"><span> Expense</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="expenselist.html">Expense List</a></li>
-<li><a href="createexpense.html">Add Expense</a></li>
-<li><a href="expensecategory.html">Expense Category</a></li>
-</ul>
- </li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/quotation1.svg" alt="img"><span> Quotation</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="quotationList.html">Quotation List</a></li>
-<li><a href="addquotation.html">Add Quotation</a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/transfer1.svg" alt="img"><span> Transfer</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="transferlist.html">Transfer List</a></li>
-<li><a href="addtransfer.html">Add Transfer </a></li>
-<li><a href="importtransfer.html">Import Transfer </a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/return1.svg" alt="img"><span> Return</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="salesreturnlist.html">Sales Return List</a></li>
-<li><a href="createsalesreturn.html">Add Sales Return </a></li>
-<li><a href="purchasereturnlist.html">Purchase Return List</a></li>
-<li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
-</ul>
-</li>
+
 <li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span> People</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="customerlist.html">Customer List</a></li>
-<li><a href="addcustomer.html">Add Customer </a></li>
-<li><a href="supplierlist.html">Supplier List</a></li>
-<li><a href="addsupplier.html">Add Supplier </a></li>
-<li><a href="userlist.html">User List</a></li>
-<li><a href="adduser.html">Add User</a></li>
-<li><a href="storelist.html">Store List</a></li>
-<li><a href="addstore.html">Add Store</a></li>
+<li><a href="supplierlist.jsp" >Supplier List</a></li>
+<li><a href="addsupplier.jsp" >Add Supplier </a></li>
+<li><a href="userlists.jsp" >User List</a></li>
+<li><a href="adduser.jsp" class="active">Add User</a></li>
 </ul>
 </li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/places.svg" alt="img"><span> Places</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="newcountry.html">New Country</a></li>
-<li><a href="countrieslist.html">Countries list</a></li>
-<li><a href="newstate.html">New State </a></li>
-<li><a href="statelist.html">State list</a></li>
-</ul>
-</li>
-<li>
-<a href="components.html"><i data-feather="layers"></i><span> Components</span> </a>
-</li>
-<li>
-<a href="blankpage.html"><i data-feather="file"></i><span> Blank Page</span> </a>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="alert-octagon"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="error-404.html">404 Error </a></li>
-<li><a href="error-500.html">500 Error </a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="box"></i> <span>Elements </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="sweetalerts.html">Sweet Alerts</a></li>
-<li><a href="tooltip.html">Tooltip</a></li>
-<li><a href="popover.html">Popover</a></li>
-<li><a href="ribbon.html">Ribbon</a></li>
-<li><a href="clipboard.html">Clipboard</a></li>
-<li><a href="drag-drop.html">Drag & Drop</a></li>
-<li><a href="rangeslider.html">Range Slider</a></li>
-<li><a href="rating.html">Rating</a></li>
-<li><a href="toastr.html">Toastr</a></li>
-<li><a href="text-editor.html">Text Editor</a></li>
-<li><a href="counter.html">Counter</a></li>
-<li><a href="scrollbar.html">Scrollbar</a></li>
-<li><a href="spinner.html">Spinner</a></li>
-<li><a href="notification.html">Notification</a></li>
-<li><a href="lightbox.html">Lightbox</a></li>
-<li><a href="stickynote.html">Sticky Note</a></li>
-<li><a href="timeline.html">Timeline</a></li>
-<li><a href="form-wizard.html">Form Wizard</a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="bar-chart-2"></i> <span> Charts </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="chart-apex.html">Apex Charts</a></li>
-<li><a href="chart-js.html">Chart Js</a></li>
-<li><a href="chart-morris.html">Morris Charts</a></li>
-<li><a href="chart-flot.html">Flot Charts</a></li>
-<li><a href="chart-peity.html">Peity Charts</a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="award"></i><span> Icons </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
-<li><a href="icon-feather.html">Feather Icons</a></li>
-<li><a href="icon-ionic.html">Ionic Icons</a></li>
-<li><a href="icon-material.html">Material Icons</a></li>
-<li><a href="icon-pe7.html">Pe7 Icons</a></li>
-<li><a href="icon-simpleline.html">Simpleline Icons</a></li>
-<li><a href="icon-themify.html">Themify Icons</a></li>
-<li><a href="icon-weather.html">Weather Icons</a></li>
-<li><a href="icon-typicon.html">Typicon Icons</a></li>
-<li><a href="icon-flag.html">Flag Icons</a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-<li><a href="form-input-groups.html">Input Groups </a></li>
-<li><a href="form-horizontal.html">Horizontal Form </a></li>
-<li><a href="form-vertical.html"> Vertical Form </a></li>
-<li><a href="form-mask.html">Form Mask </a></li>
-<li><a href="form-validation.html">Form Validation </a></li>
-<li><a href="form-select2.html">Form Select2 </a></li>
-<li><a href="form-fileupload.html">File Upload </a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><i data-feather="layout"></i> <span> Table </span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="tables-basic.html">Basic Tables </a></li>
-<li><a href="data-tables.html">Data Table </a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span> Application</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="chat.html">Chat</a></li>
-<li><a href="calendar.html">Calendar</a></li>
-<li><a href="email.html">Email</a></li>
-</ul>
-</li>
+
 <li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/time.svg" alt="img"><span> Report</span> <span class="menu-arrow"></span></a>
 <ul>
-<li><a href="purchaseorderreport.html">Purchase order report</a></li>
-<li><a href="inventoryreport.html">Inventory Report</a></li>
-<li><a href="salesreport.html">Sales Report</a></li>
-<li><a href="invoicereport.html">Invoice Report</a></li>
-<li><a href="purchasereport.html">Purchase Report</a></li>
-<li><a href="supplierreport.html">Supplier Report</a></li>
-<li><a href="customerreport.html">Customer Report</a></li>
+<li><a href="purchaseorderreport.jsp">Purchase order report</a></li>
+<li><a href="inventoryreport.jsp">Inventory Report</a></li>
+<li><a href="salesreport.jsp">Sales Report</a></li>
+<li><a href="invoicereport.jsp">Invoice Report</a></li>
+<li><a href="purchasereport.jsp">Purchase Report</a></li>
 </ul>
 </li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/users1.svg" alt="img"><span> Users</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="newuser.html">New User </a></li>
-<li><a href="userlists.html" class="active">Users List</a></li>
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="assets/img/icons/settings.svg" alt="img"><span> Settings</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="generalsettings.html">General Settings</a></li>
-<li><a href="emailsettings.html">Email Settings</a></li>
-<li><a href="paymentsettings.html">Payment Settings</a></li>
-<li><a href="currencysettings.html">Currency Settings</a></li>
-<li><a href="grouppermissions.html">Group Permissions</a></li>
-<li><a href="taxrates.html">Tax Rates</a></li>
-</ul>
-</li>
-</ul>
+
 </div>
 </div>
 </div>
@@ -445,7 +298,7 @@
 <h6>Manage your User</h6>
 </div>
 <div class="page-btn">
-<a href="newuser.html" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img">Add User</a>
+<a href="adduser.jsp" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img">Add User</a>
 </div>
 </div>
 
@@ -454,9 +307,7 @@
 <div class="table-top">
 <div class="search-set">
 <div class="search-path">
-<a class="btn btn-filter" id="filter_search">
-<img src="assets/img/icons/filter.svg" alt="img">
-<span><img src="assets/img/icons/closes.svg" alt="img"></span>
+
 </a>
 </div>
 <div class="search-input">
@@ -478,375 +329,45 @@
 </div>
 </div>
 
-<div class="card" id="filter_inputs">
-<div class="card-body pb-0">
-<div class="row">
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<input type="text" placeholder="Enter User Name">
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<input type="text" placeholder="Enter Phone">
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<input type="text" placeholder="Enter Email">
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<input type="text" class="datetimepicker cal-icon" placeholder="Choose Date">
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Disable</option>
-<option>Enable</option>
-</select>
-</div>
-</div>
-<div class="col-lg-1 col-sm-6 col-12 ms-auto">
-<div class="form-group">
-<a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg" alt="img"></a>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 
 <div class="table-responsive">
 <table class="table  datanew">
 <thead>
 <tr>
-<th>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</th>
-<th>User name </th>
+<th>Name</th>
+<th>Username </th>
 <th>Phone</th>
  <th>email</th>
 <th>Role</th>
-<th>Created On</th>
 <th>Status</th>
 <th>Action</th>
 </tr>
 </thead>
+<form action="UserServlet" method="post">
 <tbody>
+<c:forEach var="user" items="${UserSer}">
 <tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>Thomas</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb8f9394969a88bb9e839a968b979ed5989496">[email&#160;protected]</a> </td>
-<td>Admin </td>
-<td>3/15/2022</td>
+<input type="hidden" name="uid" value="${user.uid}">
+  <td><input type="text" name="name" value="${user.fname} ${user.lname}" style="border: none; display: inline;" readonly></td>
+  <td><input type="text" name="ph" value="${user.username}" style="border: none; display: inline;" readonly></td>
+  <td><input type="text" name="ph" value="${user.ph}" style="border: none; display: inline;" readonly></td>
+  <td><input type="text" name="mail" value="${user.mail}" style="border: none; display: inline;" readonly></td>
+  <td><input type="text" name="role" value="${user.role}" style="border: none; display: inline;" readonly></td>
+
 <td><span class="bg-lightgreen badges">Active</span></td>
 <td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
+<a class="me-3" href="jsp/newuseredit.jsp">
+<img src="assets/img/icons/edit.svg" alt="img" name="edit">
 </a>
 <a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
+<img src="assets/img/icons/delete.svg" alt="img" name="delete">
 </a>
 </td>
 </tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>504Benjamin</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="60031513140f0d0512200518010d100c054e030f0d">[email&#160;protected]</a></td>
-<td>Manager </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>James 524</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0cac1cdc5d3e0c5d8c1cdd0ccc58ec3cfcd">[email&#160;protected]</a></td>
-<td>Salesman </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>James 524</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94fef5f9f1e7d4f1ecf5f9e4f8f1baf7fbf9">[email&#160;protected]</a></td>
-<td>Salesman </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>Bruklin2022</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d4b6a6a1bfb8bdba94b1acb5b9a4b8b1fab7bbb9">[email&#160;protected]</a></td>
-<td>Delivery Biker </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
- </a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>BeverlyWIN25</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e0c1c1b050207002e0b160f031e020b400d0103">[email&#160;protected]</a></td>
-<td>Delivery Biker </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>BHR256</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d098a5b2b5a290b5a8b1bda0bcb5feb3bfbd">[email&#160;protected]</a></td>
-<td>Sales Executive</td>
-<td>3/15/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>Thomas</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b1adaaa8a4b685a0bda4a8b5a9a0eba6aaa8">[email&#160;protected]</a> </td>
-<td>Admin </td>
-<td>3/15/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>504Benjamin</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="62011711160d0f071022071a030f120e074c010d0f">[email&#160;protected]</a></td>
-<td>Manager </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>James 524</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="274d464a425467425f464a574b420944484a">[email&#160;protected]</a></td>
-<td>Salesman </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>James 524</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e48e85898197a4819c8589948881ca878b89">[email&#160;protected]</a></td>
-<td>Salesman </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightred badges">Restricted</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>Bruklin2022</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b59494e505752557b5e435a564b575e15585456">[email&#160;protected]</a></td>
-<td>Delivery Biker </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>BeverlyWIN25</td>
-<td>+12163547758 </td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52302027393e3b3c12372a333f223e377c313d3f">[email&#160;protected]</a></td>
-<td>Delivery Biker </td>
-<td>2/27/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
-<tr>
-<td>
-<label class="checkboxs">
-<input type="checkbox">
-<span class="checkmarks"></span>
-</label>
-</td>
-<td>BHR256</td>
-<td>123-456-888</td>
-<td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b536e797e695b7e637a766b777e35787476">[email&#160;protected]</a></td>
-<td>Sales Executive</td>
-<td>3/15/2022</td>
-<td><span class="bg-lightgreen badges">Active</span></td>
-<td>
-<a class="me-3" href="newuseredit.html">
-<img src="assets/img/icons/edit.svg" alt="img">
-</a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img">
-</a>
-</td>
-</tr>
+</c:forEach>
 </tbody>
+</form>
 </table>
 </div>
 </div>

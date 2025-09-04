@@ -1,6 +1,7 @@
 package Model;
 
 public class Userbean {
+	private int uid;
 	private String fname;
 	private String lname;
 	private String username;
@@ -56,5 +57,11 @@ public class Userbean {
 	}
 	public void setImg(String img) {
 		this.img = img;
+	}
+	public int getUid() {
+		return uid;
+	}
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 }
