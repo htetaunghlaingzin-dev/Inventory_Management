@@ -351,7 +351,7 @@
 </div>
 </div>
 <div class="col-lg-12">
-<input type="submit" name="User" value="Insert" class="btn btn-submit me-2">
+<input type="submit" name="cmd" value="Insert" class="btn btn-submit me-2">
 <a href="userlist.html" class="btn btn-cancel">Cancel</a>
 </div>
 </div>

@@ -444,76 +444,87 @@
 </div>
 </div>
 
-<div class="card">
-<div class="card-body">
-<div class="row">
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="form-group">
-<label>Supplier Name</label>
-<input type="text" value="Apex Computers">
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="form-group">
-<label>Email</label>
-<input type="text" value="Apexcomputers@example.com">
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="form-group">
-<label>Phone</label>
-<input type="text" value="+12163547758 ">
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="form-group">
-<label>Choose Country</label>
-<select class="select">
-<option>United States</option>
-<option>India</option>
-</select>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="form-group">
-<label>City</label>
-<select class="select">
-<option>Newyork</option>
-<option>City 1</option>
-</select>
-</div>
-</div>
-<div class="col-lg-9 col-12">
-<div class="form-group">
-<label>Address</label>
-<input type="text" value="132, My Street, Kingston, New York ">
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label>Description</label>
-<textarea class="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </textarea>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label> Avatar</label>
-<div class="image-upload">
-<input type="file">
-<div class="image-uploads">
-<img src="assets/img/icons/upload.svg" alt="img">
-<h4>Drag and drop a file to upload</h4>
-</div>
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<a class="btn btn-submit me-2">Update</a>
-<a class="btn btn-cancel">Cancel</a>
-</div>
-</div>
-</div>
-</div>
+<form action="/InventoryManagement/SupplierServlet" method="post">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                <!-- Hidden ID -->
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <input type="hidden" name="sid" value="${edit.sid}">
+                        
+                        <label>Supplier Name</label>
+                        <input type="text" name="name" value="${edit.name}" >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" value="${edit.mail}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" name="phone" value="${edit.phone}">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select class="select" name="country">
+                            <option value="Myanmar" ${edit.country == 'Myanmar' ? 'selected' : ''}>Myanmar</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>City</label>
+                        <select class="select" name="city">
+                        	<option value="Yangon"   ${edit.city == 'Yangon' ? 'selected' : ''}>Yangon</option>
+                            <option value="Mandalay"   ${edit.city == 'Mandalay' ? 'selected' : ''}>Mandalay</option>
+       						<option value="Naypyitaw"  ${edit.city == 'Naypyitaw' ? 'selected' : ''}>Naypyitaw</option>
+        					<option value="Taunggyi"   ${edit.city == 'Taunggyi' ? 'selected' : ''}>Taunggyi</option>
+        					<option value="Bago"       ${edit.city == 'Bago' ? 'selected' : ''}>Bago</option>
+        					<option value="Pathein"    ${edit.city == 'Pathein' ? 'selected' : ''}>Pathein</option>
+        					<option value="Mawlamyine" ${edit.city == 'Mawlamyine' ? 'selected' : ''}>Mawlamyine</option>
+        					<option value="Sittwe"     ${edit.city == 'Sittwe' ? 'selected' : ''}>Sittwe</option>
+        					<option value="Myitkyina"  ${edit.city == 'Myitkyina' ? 'selected' : ''}>Myitkyina</option>
+        					<option value="Hpa-An"     ${edit.city == 'Hpa-An' ? 'selected' : ''}>Hpa-An</option>
+        					<option value="Loikaw"     ${edit.city == 'Loikaw' ? 'selected' : ''}>Loikaw</option>
+        					<option value="Taungoo"    ${edit.city == 'Taungoo' ? 'selected' : ''}>Taungoo</option>
+        					<option value="Pyay"       ${edit.city == 'Pyay' ? 'selected' : ''}>Pyay</option>
+        					<option value="Magway"     ${edit.city == 'Magway' ? 'selected' : ''}>Magway</option>
+        					<option value="Monywa"     ${edit.city == 'Monywa' ? 'selected' : ''}>Monywa</option>
+        					<option value="Kalay"      ${edit.city == 'Kalay' ? 'selected' : ''}>Kalay</option>
+        					<option value="Hakha"      ${edit.city == 'Hakha' ? 'selected' : ''}>Hakha</option>
+        					<option value="Moulmein"   ${edit.city == 'Moulmein' ? 'selected' : ''}>Moulmein</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-12">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" name="address" value="${edit.address}">
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description">${edit.description}</textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <input type="submit" name="cmd" value="update" class="btn btn-submit me-2">
+                    <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 
 </div>
 </div>

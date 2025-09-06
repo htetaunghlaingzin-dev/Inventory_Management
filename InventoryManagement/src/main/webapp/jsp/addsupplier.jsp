@@ -284,65 +284,78 @@
 <h6>Add/Update Customer</h6>
 </div>
 </div>
-
+<form action="/InventoryManagement/SupplierServlet" method="post" enctype="multipart/form-data">
 <div class="card">
 <div class="card-body">
 <div class="row">
 <div class="col-lg-3 col-sm-6 col-12">
 <div class="form-group">
 <label>Supplier Name</label>
-<input type="text">
+<input type="text" name="name">
 </div>
 </div>
 <div class="col-lg-3 col-sm-6 col-12">
 <div class="form-group">
 <label>Email</label>
-<input type="text">
+<input type="text" name="mail">
 </div>
 </div>
 <div class="col-lg-3 col-sm-6 col-12">
 <div class="form-group">
 <label>Phone</label>
-<input type="text">
+<input type="text" name="ph">
 </div>
 </div>
 <div class="col-lg-3 col-sm-6 col-12">
 <div class="form-group">
 <label>Choose Country</label>
-<select class="select">
-<option>Choose Country</option>
-<option>India</option>
-<option>USA</option>
+<select class="select" name="country">
+<option value="Myanmar" >Myanmar</option>
 </select>
 </div>
 </div>
 <div class="col-lg-3 col-sm-6 col-12">
 <div class="form-group">
 <label>City</label>
-<select class="select">
-<option>Choose City</option>
-<option>City 1</option>
-<option>City 2</option>
+<select class="select" name="city">
+<option value="Yangon">Yangon</option>
+    <option value="Mandalay">Mandalay</option>
+    <option value="Naypyitaw">Naypyitaw</option>
+    <option value="Taunggyi">Taunggyi</option>
+    <option value="Bago">Bago</option>
+    <option value="Pathein">Pathein</option>
+    <option value="Mawlamyine">Mawlamyine</option>
+    <option value="Sittwe">Sittwe</option>
+    <option value="Myitkyina">Myitkyina</option>
+    <option value="Hpa-An">Hpa-An</option>
+    <option value="Loikaw">Loikaw</option>
+    <option value="Taungoo">Taungoo</option>
+    <option value="Pyay">Pyay</option>
+    <option value="Magway">Magway</option>
+    <option value="Monywa">Monywa</option>
+    <option value="Kalay">Kalay</option>
+    <option value="Hakha">Hakha</option>
+    <option value="Moulmein">Moulmein</option>
 </select>
 </div>
 </div>
 <div class="col-lg-9 col-12">
 <div class="form-group">
 <label>Address</label>
-<input type="text">
+<input type="text" name="address">
 </div>
 </div>
 <div class="col-lg-12">
 <div class="form-group">
 <label>Description</label>
-<textarea class="form-control"></textarea>
+<textarea class="form-control" name="description"></textarea>
 </div>
 </div>
 <div class="col-lg-12">
 <div class="form-group">
 <label> Avatar</label>
 <div class="image-upload">
-<input type="file">
+<input type="file" name="avatar">
 <div class="image-uploads">
 <img src="assets/img/icons/upload.svg" alt="img">
 <h4>Drag and drop a file to upload</h4>
@@ -351,13 +364,13 @@
 </div>
 </div>
 <div class="col-lg-12">
-<a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+<input type="submit" name="cmd" value="Insert" class="btn btn-submit me-2">
 <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
 </div>
 </div>
 </div>
 </div>
-
+</form>
 </div>
 </div>
 </div>

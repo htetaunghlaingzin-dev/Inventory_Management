@@ -54,7 +54,7 @@
 <a href="index.html" class="logo">
 <img src="assets/img/logo.png" alt="">
 </a>
-<a href="index.html" class="logo-small">
+<a href="index.jsp" class="logo-small">
 <img src="assets/img/logo-small.png" alt="">
 </a>
 <a id="toggle_btn" href="javascript:void(0);">
@@ -225,7 +225,7 @@
 <div class="dropdown-menu dropdown-menu-right">
 <a class="dropdown-item" href="profile.html">My Profile</a>
 <a class="dropdown-item" href="generalsettings.html">Settings</a>
-<a class="dropdown-item" href="signin.html">Logout</a>
+<a class="dropdown-item" href="jsp/signin.html">Logout</a>
 </div>
 </div>
 
@@ -270,8 +270,8 @@
 <ul>
 <li><a href="supplierlist.jsp" >Supplier List</a></li>
 <li><a href="addsupplier.jsp" >Add Supplier </a></li>
-<li><a href="userlists.jsp" >User List</a></li>
-<li><a href="adduser.jsp" class="active">Add User</a></li>
+<li><a href="userlists.jsp" class="active">User List</a></li>
+<li><a href="adduser.jsp" >Add User</a></li>
 </ul>
 </li>
 
@@ -308,7 +308,7 @@
 <div class="search-set">
 <div class="search-path">
 
-</a>
+</ul>
 </div>
 <div class="search-input">
 <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
@@ -344,7 +344,7 @@
 <th>Action</th>
 </tr>
 </thead>
-<form action="UserServlet" method="post">
+<form action="/InventoryManagement/UserServlet" method="post">
 <tbody>
 <c:forEach var="user" items="${UserSer}">
 <tr>
@@ -357,11 +357,12 @@
 
 <td><span class="bg-lightgreen badges">Active</span></td>
 <td>
-<a class="me-3" href="jsp/newuseredit.jsp">
-<img src="assets/img/icons/edit.svg" alt="img" name="edit">
+<a class="me-3" href="/InventoryManagement/UserServlet?cmd=edit&id=${user.uid}">
+<img src="assets/img/icons/edit.svg" alt="img" >
 </a>
-<a class="me-3 confirm-text" href="javascript:void(0);">
-<img src="assets/img/icons/delete.svg" alt="img" name="delete">
+
+<a class="me-3 confirm-text" href="/InventoryManagement/UserServlet?cmd=delete&id=${user.uid}">
+<img src="assets/img/icons/delete.svg" alt="img" >
 </a>
 </td>
 </tr>

@@ -1,28 +1,25 @@
 package Model;
 
-import java.io.PrintWriter;
-import java.net.http.HttpResponse.ResponseInfo;
+import java.awt.desktop.SystemSleepEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import jakarta.servlet.http.HttpServletResponse;
-
-public class UserAccess {
-	public Userbean setUser(String fname,String lname,String username,String pwd,String ph,String mail,String role,String img) {
-		Userbean user=new Userbean();
+public class SupplierAccess {
+	public SuppllierBean setUser(String name,String mail,String ph,String country,String city,String address,String description,String img) {
+		SuppllierBean user=new SuppllierBean();
 		Connection con;
 		Statement stmt;
 		int rs=0;
-		System.out.print(fname+lname+username+pwd+ph+mail+role+img);
+		System.out.print(name+mail+country+city+address+description+ph+mail+img);
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				con=DriverManager.getConnection("jdbc:mysql://localhost/inventory_management","root","");
 				stmt=con.createStatement();
-				String sql="insert into user(fname,lname,username,password,phone,mail,role,img) values('"+fname+"','"+lname+"','"+username+"','"+pwd+"','"+ph+"','"+mail+"','"+role+"','"+img+"')";
+				String sql="insert into suppliers(suppliername,email,phone,country,city,address,description,img) values('"+name+"','"+mail+"','"+ph+"','"+country+"','"+city+"','"+address+"','"+description+"','"+img+"')";
 				rs=stmt.executeUpdate(sql);
 				 System.out.print("sql"+sql+rs);
 				if(rs>0) {
@@ -39,8 +36,8 @@ public class UserAccess {
 		}
 		return user;
 	}
-	public ArrayList<Userbean> searchUser(String name) {
-		ArrayList <Userbean> user=new ArrayList<Userbean>();
+	public ArrayList<SuppllierBean> searchUser(String name) {
+		ArrayList <SuppllierBean> user=new ArrayList<SuppllierBean>();
 		Connection con;
 		Statement stmt;
 		ResultSet rs;
@@ -60,12 +57,12 @@ public class UserAccess {
 					mail=rs.getString("mail");
 					img=rs.getString("img");
 					ph=rs.getString("phone");
-					Userbean user1=new Userbean();
-					user1.setFname(fname);
-					user1.setLname(lname);
-					user1.setRole(role);
-					user1.setUsername(username);
-					user1.setPh(ph);
+					SuppllierBean user1=new  SuppllierBean();
+//					user1.setFname(fname);
+//					user1.setLname(lname);
+//					user1.setRole(role);
+//					user1.setUsername(username);
+//					user1.setPh(ph);
 					user1.setMail(mail);
 					user1.setImg(img);
 					user.add(user1);
@@ -80,8 +77,8 @@ public class UserAccess {
 		}
 		return user;
 	}
-	public Userbean searchById(String id) {
-		Userbean user=new Userbean();
+	public SuppllierBean searchById(String id) {
+		SuppllierBean supplier=new SuppllierBean();
 		Connection con;
 		Statement stmt;
 		ResultSet rs;
@@ -90,29 +87,18 @@ public class UserAccess {
 			try {
 				con=DriverManager.getConnection("jdbc:mysql://localhost/inventory_management","root","");
 				stmt=con.createStatement();
-				String sql="Select * from user where uid='"+id+"'";
+				String sql="Select * from suppliers where supplier_id='"+id+"'";
 				rs=stmt.executeQuery(sql);
 				System.out.print(sql);
-				String fname="",lname="",role = "",username="",mail="",img="",ph="";
-				int uid=0;
 				while(rs.next()) {
-					fname=rs.getString("fname");
-					lname=rs.getString("lname");
-					role=rs.getString("role");
-					username=rs.getString("username");
-					mail=rs.getString("mail");
-					img=rs.getString("img");
-					ph=rs.getString("phone");
-					uid=rs.getInt("uid");
-					user.setUid(uid);
-					user.setFname(fname);
-					user.setLname(lname);
-					user.setRole(role);
-					user.setUsername(username);
-					user.setPh(ph);
-					user.setMail(mail);
-					user.setImg(img);
-					System.out.print(username);
+					supplier.setSid(rs.getInt("supplier_id"));
+	                supplier.setName(rs.getString("suppliername"));
+	                supplier.setPhone(rs.getString("phone"));
+	                supplier.setMail(rs.getString("email"));
+	                supplier.setCountry(rs.getString("country"));
+	                supplier.setCity(rs.getString("city")); 
+	                supplier.setAddress(rs.getString("address"));
+	                supplier.setDescription(rs.getString("description"));
 				}
 				
 				
@@ -124,10 +110,10 @@ public class UserAccess {
 			// TODO: handle exception
 			System.out.print(e);
 		}
-		return user;
+		return supplier;
 	}
-	public ArrayList <Userbean>  viewUser() {
-		ArrayList <Userbean> user=new ArrayList<Userbean>();
+	public ArrayList <SuppllierBean>  viewUser() {
+		ArrayList <SuppllierBean> supplier=new ArrayList<SuppllierBean>();
 		Connection con;
 		Statement stmt;
 		ResultSet rs;
@@ -136,43 +122,48 @@ public class UserAccess {
 			try {
 				con=DriverManager.getConnection("jdbc:mysql://localhost/inventory_management","root","");
 				stmt=con.createStatement();
-				String sql="Select * from user";
+				String sql="Select * from suppliers";
 				rs=stmt.executeQuery(sql);
-				String fname="",lname="",role = "",username="",mail="",img="",ph="";
-				int uid=0;
+				System.out.print(sql);
 				while(rs.next()) {
-					uid=rs.getInt("uid");
-					fname=rs.getString("fname");
-					lname=rs.getString("lname");
-					role=rs.getString("role");
-					username=rs.getString("username");
-					mail=rs.getString("mail");
-					img=rs.getString("img");
-					ph=rs.getString("phone");
-					Userbean user1=new Userbean();
-					user1.setUid(uid);
-					user1.setFname(fname);
-					user1.setLname(lname);
-					user1.setRole(role);
-					user1.setUsername(username);
-					user1.setPh(ph);
-					user1.setMail(mail);
-					user1.setImg(img);
-					user.add(user1);
-//					System.out.print(user1.getFname());
+					 int supplier_id = rs.getInt("supplier_id");
+		                String suppliername = rs.getString("suppliername");
+		                String email = rs.getString("email");
+		                String phone = rs.getString("phone");
+		                String country = rs.getString("country");
+		                String city = rs.getString("city");
+		                String address = rs.getString("address");
+		                String description = rs.getString("description");
+		                String img = rs.getString("img");
+
+		                SuppllierBean supplier1 = new SuppllierBean();
+		                supplier1.setSid(supplier_id);
+		                supplier1.setName(suppliername);
+		                supplier1.setMail(email);
+		                supplier1.setPhone(phone);
+		                supplier1.setCountry(country);
+		                supplier1.setCity(city);
+		                supplier1.setAddress(address);
+		                supplier1.setDescription(description);
+		                supplier1.setImg(img);
+
+		                supplier.add(supplier1);
+				System.out.print(supplier1.getName());
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				System.out.print(e);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.print(e);
 		}
-		return user;
+		return supplier;
 	}
 
 //Update method
-public Userbean updateUser(String id,String fname,String lname,String ph,String mail,String role,String username) {
-    Userbean user = new Userbean();
+public SuppllierBean updateUser(String id, String suppliername, String email, String phone, String country, String city, String address, String description) {
+   SuppllierBean supplier=new SuppllierBean();
     Connection con;
     Statement stmt;
     int rs = 0;
@@ -180,13 +171,15 @@ public Userbean updateUser(String id,String fname,String lname,String ph,String 
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost/inventory_management", "root", "");
         stmt = con.createStatement();
-        String sql =  "UPDATE user SET " +
-                "fname='" + fname + "', " +
-                "lname='" + lname + "', " +
-                "phone='" + ph + "', " +
-                "mail='" + mail + "', " +
-                "role='" + role + "'" +
-                " WHERE uid='" + id + "';";
+        String sql = "UPDATE supplier SET " +
+                "suppliername='" + suppliername + "', " +
+                "email='" + email + "', " +
+                "phone='" + phone + "', " +
+                "country='" + country + "', " +
+                "city='" + city + "', " +
+                "address='" + address + "', " +
+                "description='" + description + "', " +
+                "WHERE supplier_id='" + id + "';";
         rs = stmt.executeUpdate(sql);
         System.out.print(sql);
         if (rs > 0) {
@@ -199,7 +192,7 @@ public Userbean updateUser(String id,String fname,String lname,String ph,String 
     } catch (Exception e) {
         e.printStackTrace();
     }
-    return user;
+    return supplier;
 }
 
 // Delete method
@@ -212,7 +205,7 @@ public boolean deleteUser(int id) {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost/inventory_management", "root", "");
         stmt = con.createStatement();
-        String sql = "DELETE FROM user WHERE uid='" + id+ "'";
+        String sql = "DELETE FROM suppliers WHERE supplier_id='" + id+ "'";
         rs = stmt.executeUpdate(sql);
         if (rs > 0) {
             isDeleted = true;
